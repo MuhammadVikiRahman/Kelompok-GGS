@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 Elemen HTML Dasar - Dokumentasi</title>
+  <meta name="description" content="Dokumentasi lengkap tentang 5 elemen HTML dasar untuk pemula">
+  <meta name="author" content="HTMLDocs">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0073ea;
+      --primary-light: rgba(0, 115, 234, 0.1);
+      --secondary: #f1f5f9;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --background: #ffffff;
+      --card: #ffffff;
+      --text: #0f172a;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--background);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 1rem 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+    
+    .logo span {
+      color: var(--primary);
+    }
+    
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary);
+    }
+    
+    .hero {
+      padding: 6rem 0;
+      text-align: center;
+    }
+    
+    .hero-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      margin-bottom: 1rem;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    
+    .hero-description {
+      max-width: 42rem;
+      margin: 0 auto 2rem;
+      color: var(--muted);
+      font-size: 1.25rem;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: rgba(0, 115, 234, 0.9);
+    }
+    
+    .elements-section {
+      padding: 5rem 0;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+    
+    .section-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      margin-bottom: 1rem;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    
+    .section-description {
+      max-width: 42rem;
+      margin: 0 auto;
+      color: var(--muted);
+    }
+    
+    .element-card {
+      background-color: var(--card);
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .element-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .element-header {
+      display: flex;
+      align-items: center;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .element-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border-radius: 9999px;
+      font-weight: 600;
+      margin-right: 1rem;
+    }
+    
+    .element-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    
+    .element-body {
+      padding: 1.5rem;
+    }
+    
+    .element-description {
+      margin-bottom: 1.5rem;
+    }
+    
+    .element-description code {
+      background-color: var(--secondary);
+      padding: 0.125rem 0.25rem;
+      border-radius: 0.25rem;
+      font-family: monospace;
+    }
+    
+    .element-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      .element-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .code-block {
+      position: relative;
+      background-color: #1e1e1e;
+      color: #f8f8f2;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      font-family: monospace;
+      font-size: 0.875rem;
+      overflow-x: auto;
+    }
+    
+    .code-dots {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.75rem;
+      display: flex;
+      gap: 0.25rem;
+    }
+    
+    .code-dot {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 9999px;
+    }
+    
+    .code-dot-red {
+      background-color: #ff5f56;
+    }
+    
+    .code-dot-yellow {
+      background-color: #ffbd2e;
+    }
+    
+    .code-dot-green {
+      background-color: #27c93f;
+    }
+    
+    .tag {
+      color: #ff79c6;
+    }
+    
+    .attr {
+      color: #50fa7b;
+    }
+    
+    .string {
+      color: #f1fa8c;
+    }
+    
+    .comment {
+      color: #6272a4;
+    }
+    
+    .example {
+      background-color: var(--card);
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+    }
+    
+    .examples-section {
+      padding: 5rem 0;
+      background-color: var(--secondary);
+    }
+    
+    .example-code {
+      background-color: var(--card);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      margin-bottom: 4rem;
+    }
+    
+    .example-code-header {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      background-color: #f8fafc;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .example-code-dots {
+      display: flex;
+      gap: 0.25rem;
+      margin-right: 1rem;
+    }
+    
+    .example-code-dot {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 9999px;
+    }
+    
+    .example-code-filename {
+      font-family: monospace;
+      font-size: 0.75rem;
+      background-color: #e2e8f0;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+    }
+    
+    .example-code-body {
+      padding: 1.5rem;
+    }
+    
+    .example-code-pre {
+      font-family: monospace;
+      font-size: 0.875rem;
+      color: #334155;
+      overflow-x: auto;
+    }
+    
+    .resources-section {
+      padding: 5rem 0;
+    }
+    
+    .resources-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    @media (min-width: 768px) {
+      .resources-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+    
+    .resource-card {
+      background-color: var(--card);
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .resource-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .resource-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .resource-description {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    
+    .resource-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .resource-link:hover {
+      text-decoration: underline;
+    }
+    
+    .footer {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    @media (min-width: 768px) {
+      .footer-content {
+        flex-direction: row;
+      }
+    }
+    
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      .footer-logo {
+        margin-bottom: 0;
+      }
+    }
+    
+    .footer-logo span {
+      color: var(--primary);
+    }
+    
+    .footer-description {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    
+    .footer-copyright {
+      font-size: 0.875rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    
+    @media (min-width: 768px) {
+      .footer-copyright {
+        text-align: right;
+      }
+    }
+    
+    .html-example {
+      border: 2px dashed rgba(0, 115, 234, 0.4);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      font-family: monospace;
+      font-size: 0.875rem;
+    }
+    
+    .html-tag {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    .html-container {
+      margin-top: 0.5rem;
+      border: 1px solid #e2e8f0;
+      padding: 0.75rem;
+      border-radius: 0.25rem;
+    }
+    
+    .html-section {
+      background-color: #f1f5f9;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      margin-bottom: 0.5rem;
+      color: #64748b;
+    }
+    
+    .heading-example {
+      padding: 1.5rem;
+    }
+    
+    .heading-example h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    
+    .heading-example h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    
+    .heading-example h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    
+    .heading-example h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    
+    .heading-example h5 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    
+    .heading-example h6 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    
+    .paragraph-example {
+      padding: 1.5rem;
+    }
+    
+    .paragraph-example p {
+      color: #334155;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-content">
+      <div class="logo">HTML<span>Docs</span></div>
+      <nav class="nav">
+        <a href="#elements" class="nav-link">Elemen</a>
+        <a href="#examples" class="nav-link">Contoh</a>
+        <a href="#resources" class="nav-link">Sumber</a>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+     
+  
+  <!-- Elements Section -->
+  <section id="elements" class="elements-section">
+    <div class="container">
+      <div class="section-header">
+       
+        <h2 class="section-title">5 Elemen HTML Dasar</h2>
+        <p class="section-description">
+          Lima elemen HTML dasar yang menjadi fondasi dalam struktur setiap halaman web.
+        </p>
+      </div>
+      
+      <!-- HTML Element -->
+      <div class="element-card">
+        <div class="element-header">
+          <div class="element-number">1</div>
+          <h3 class="element-title">&lt;html&gt;</h3>
+        </div>
+        <div class="element-body">
+          <div class="element-description">
+            <p style="margin-bottom: 1rem;">
+              Elemen <code>&lt;html&gt;</code> adalah elemen root yang membungkus semua konten HTML pada halaman. 
+              Ini adalah elemen container level tertinggi yang menampung seluruh struktur dokumen HTML.
+            </p>
+            <p>
+              Semua elemen HTML lainnya harus menjadi turunan dari elemen ini. Elemen ini juga dikenal sebagai root element.
+            </p>
+          </div>
+          <div class="element-grid">
+            <div class="code-block">
+              <div class="code-dots">
+                <div class="code-dot code-dot-red"></div>
+                <div class="code-dot code-dot-yellow"></div>
+                <div class="code-dot code-dot-green"></div>
+              </div>
+              <pre><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="string">"id"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;head&gt;</span>
+    <span class="comment">&lt;!-- Konten head --&gt;</span>
+  <span class="tag">&lt;/head&gt;</span>
+  <span class="tag">&lt;body&gt;</span>
+    <span class="comment">&lt;!-- Konten body --&gt;</span>
+  <span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></pre>
+            </div>
+            <div class="example">
+              <div class="html-example">
+                <span class="html-tag">&lt;html&gt;</span>
+                <div class="html-container">
+                  <div class="html-section">&lt;head&gt; ... &lt;/head&gt;</div>
+                  <div class="html-section">&lt;body&gt; ... &lt;/body&gt;</div>
+                </div>
+                <span class="html-tag">&lt;/html&gt;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- HEAD Element -->
+      <div class="element-card">
+        <div class="element-header">
+          <div class="element-number">2</div>
+          <h3 class="element-title">&lt;head&gt;</h3>
+        </div>
+        <div class="element-body">
+          <div class="element-description">
+            <p style="margin-bottom: 1rem;">
+              Elemen <code>&lt;head&gt;</code> berisi metadata dan informasi tentang dokumen HTML, 
+              seperti judul, karakter set, stylesheet, dan script.
+            </p>
+            <p>
+              Konten dalam elemen head tidak ditampilkan di browser, tetapi berisi informasi penting tentang dokumen.
+            </p>
+          </div>
+          <div class="element-grid">
+            <div class="code-block">
+              <div class="code-dots">
+                <div class="code-dot code-dot-red"></div>
+                <div class="code-dot code-dot-yellow"></div>
+                <div class="code-dot code-dot-green"></div>
+              </div>
+              <pre><span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;title&gt;</span>Judul Halaman<span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"styles.css"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"script.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+<span class="tag">&lt;/head&gt;</span></pre>
+            </div>
+            <div class="example">
+              <div style="border-left: 4px solid var(--primary); padding: 0.25rem 0 0.25rem 1rem; margin-bottom: 0.75rem;">
+                <div style="font-family: monospace; font-size: 0.875rem; color: var(--muted);">Meta Data</div>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background-color: #f8fafc; border-radius: 0.25rem;">
+                  <span style="font-size: 0.875rem; font-weight: 500;">Charset</span>
+                  <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background-color: #e2e8f0; border-radius: 0.25rem;">UTF-8</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background-color: #f8fafc; border-radius: 0.25rem;">
+                  <span style="font-size: 0.875rem; font-weight: 500;">Viewport</span>
+                  <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background-color: #e2e8f0; border-radius: 0.25rem;">width=device-width, initial-scale=1.0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background-color: #f8fafc; border-radius: 0.25rem;">
+                  <span style="font-size: 0.875rem; font-weight: 500;">Title</span>
+                  <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background-color: #e2e8f0; border-radius: 0.25rem;">Judul Halaman</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background-color: #f8fafc; border-radius: 0.25rem;">
+                  <span style="font-size: 0.875rem; font-weight: 500;">Stylesheet</span>
+                  <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background-color: #e2e8f0; border-radius: 0.25rem;">styles.css</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background-color: #f8fafc; border-radius: 0.25rem;">
+                  <span style="font-size: 0.875rem; font-weight: 500;">Script</span>
+                  <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background-color: #e2e8f0; border-radius: 0.25rem;">script.js</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- BODY Element -->
+      <div class="element-card">
+        <div class="element-header">
+          <div class="element-number">3</div>
+          <h3 class="element-title">&lt;body&gt;</h3>
+        </div>
+        <div class="element-body">
+          <div class="element-description">
+            <p style="margin-bottom: 1rem;">
+              Elemen <code>&lt;body&gt;</code> berisi seluruh konten yang akan ditampilkan di browser, 
+              seperti teks, gambar, link, tabel, dan elemen HTML lainnya.
+            </p>
+            <p>
+              Semua konten yang terlihat oleh pengguna harus ditempatkan di dalam elemen body.
+            </p>
+          </div>
+          <div class="element-grid">
+            <div class="code-block">
+              <div class="code-dots">
+                <div class="code-dot code-dot-red"></div>
+                <div class="code-dot code-dot-yellow"></div>
+                <div class="code-dot code-dot-green"></div>
+              </div>
+              <pre><span class="tag">&lt;body&gt;</span>
+  <span class="tag">&lt;header&gt;</span>
+    <span class="tag">&lt;h1&gt;</span>Judul Website<span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;nav&gt;</span>
+      <span class="comment">&lt;!-- Menu navigasi --&gt;</span>
+    <span class="tag">&lt;/nav&gt;</span>
+  <span class="tag">&lt;/header&gt;</span>
+  
+  <span class="tag">&lt;main&gt;</span>
+    <span class="tag">&lt;p&gt;</span>Ini adalah paragraf teks dalam halaman web.<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="string">"gambar.jpg"</span> <span class="attr">alt</span>=<span class="string">"Deskripsi gambar"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/main&gt;</span>
+  
+  <span class="tag">&lt;footer&gt;</span>
+    <span class="comment">&lt;!-- Konten footer --&gt;</span>
+  <span class="tag">&lt;/footer&gt;</span>
+<span class="tag">&lt;/body&gt;</span></pre>
+            </div>
+            <div class="example">
+              <div style="border-radius: 0.5rem; overflow: hidden; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+                <div style="border-bottom: 1px solid var(--border); padding: 0.75rem; background-color: #f8fafc;">
+                  <div style="font-weight: 500;">Header</div>
+                </div>
+                <div style="padding: 1rem; border-bottom: 1px solid var(--border); min-height: 5rem;">
+                  <div style="text-align: center;">Main Content</div>
+                </div>
+                <div style="padding: 0.5rem; background-color: #f8fafc;">
+                  <div style="font-size: 0.75rem; text-align: center; color: var(--muted);">Footer</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Heading Elements -->
+      <div class="element-card">
+        <div class="element-header">
+          <div class="element-number">4</div>
+          <h3 class="element-title">&lt;h1&gt; to &lt;h6&gt;</h3>
+        </div>
+        <div class="element-body">
+          <div class="element-description">
+            <p style="margin-bottom: 1rem;">
+              Elemen heading dari <code>&lt;h1&gt;</code> hingga <code>&lt;h6&gt;</code> digunakan untuk mendefinisikan judul dan subjudul dalam dokumen HTML.
+            </p>
+            <p>
+              <code>&lt;h1&gt;</code> adalah level heading tertinggi dan biasanya digunakan untuk judul utama halaman, sementara <code>&lt;h6&gt;</code> 
+              adalah level heading terendah.
+            </p>
+          </div>
+          <div class="element-grid">
+            <div class="code-block">
+              <div class="code-dots">
+                <div class="code-dot code-dot-red"></div>
+                <div class="code-dot code-dot-yellow"></div>
+                <div class="code-dot code-dot-green"></div>
+              </div>
+              <pre><span class="tag">&lt;h1&gt;</span>Heading Level 1<span class="tag">&lt;/h1&gt;</span>
+<span class="tag">&lt;h2&gt;</span>Heading Level 2<span class="tag">&lt;/h2&gt;</span>
+<span class="tag">&lt;h3&gt;</span>Heading Level 3<span class="tag">&lt;/h3&gt;</span>
+<span class="tag">&lt;h4&gt;</span>Heading Level 4<span class="tag">&lt;/h4&gt;</span>
+<span class="tag">&lt;h5&gt;</span>Heading Level 5<span class="tag">&lt;/h5&gt;</span>
+<span class="tag">&lt;h6&gt;</span>Heading Level 6<span class="tag">&lt;/h6&gt;</span></pre>
+            </div>
+            <div class="example heading-example">
+              <h1>Heading Level 1</h1>
+              <h2>Heading Level 2</h2>
+              <h3>Heading Level 3</h3>
+              <h4>Heading Level 4</h4>
+              <h5>Heading Level 5</h5>
+              <h6>Heading Level 6</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Paragraph Element -->
+      <div class="element-card">
+        <div class="element-header">
+          <div class="element-number">5</div>
+          <h3 class="element-title">&lt;p&gt;</h3>
+        </div>
+        <div class="element-body">
+          <div class="element-description">
+            <p style="margin-bottom: 1rem;">
+              Elemen <code>&lt;p&gt;</code> digunakan untuk mendefinisikan paragraf teks dalam dokumen HTML.
+            </p>
+            <p>
+              Browser secara otomatis menambahkan ruang (margin) sebelum dan sesudah setiap elemen paragraf 
+              untuk memisahkannya dari paragraf lain atau elemen lainnya.
+            </p>
+          </div>
+          <div class="element-grid">
+            <div class="code-block">
+              <div class="code-dots">
+                <div class="code-dot code-dot-red"></div>
+                <div class="code-dot code-dot-yellow"></div>
+                <div class="code-dot code-dot-green"></div>
+              </div>
+              <pre><span class="tag">&lt;p&gt;</span>Ini adalah contoh paragraf dalam HTML. Paragraf digunakan untuk mengelompokkan teks terkait menjadi satu blok.<span class="tag">&lt;/p&gt;</span>
+
+<span class="tag">&lt;p&gt;</span>Ini adalah paragraf kedua. Perhatikan bagaimana browser secara otomatis menambahkan ruang antara paragraf.<span class="tag">&lt;/p&gt;</span></pre>
+            </div>
+            <div class="example paragraph-example">
+              <p>
+                Ini adalah contoh paragraf dalam HTML. Paragraf digunakan untuk mengelompokkan teks terkait menjadi satu blok.
+              </p>
+              <p>
+                Ini adalah paragraf kedua. Perhatikan bagaimana browser secara otomatis menambahkan ruang antara paragraf.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Examples Section -->
+  <section id="examples" class="examples-section">
+    
+      
+      <div class="example-code">
+        <div class="example-code-header">
+          <div class="example-code-dots">
+            <div class="code-dot code-dot-red"></div>
+            <div class="code-dot code-dot-yellow"></div>
+            <div class="code-dot code-dot-green"></div>
+          </div>
+          <div class="example-code-filename">index.html</div>
+        </div>
+        <div class="example-code-body">
+          <pre class="example-code-pre">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="id"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Contoh Halaman HTML&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Selamat Datang di Website Saya&lt;/h1&gt;
+  
+  &lt;h2&gt;Tentang Saya&lt;/h2&gt;
+  &lt;p&gt;Halo! Saya seorang pengembang web yang sedang belajar HTML.&lt;/p&gt;
+  &lt;p&gt;Halaman ini dibuat menggunakan elemen HTML dasar yang telah dipelajari.&lt;/p&gt;
+  
+  &lt;h3&gt;Keterampilan Saya&lt;/h3&gt;
+  &lt;p&gt;Saya sedang mempelajari berbagai teknologi web, termasuk:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;HTML&lt;/li&gt;
+    &lt;li&gt;CSS&lt;/li&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;
+  &lt;/ul&gt;
+  
+  &lt;h4&gt;Kontak&lt;/h4&gt;
+  &lt;p&gt;Silakan hubungi saya melalui email di: example@email.com&lt;/p&gt;
+  
+  &lt;h5&gt;Tautan Berguna&lt;/h5&gt;
+  &lt;p&gt;Kunjungi &lt;a href="https://www.w3schools.com"&gt;W3Schools&lt;/a&gt; untuk belajar lebih lanjut tentang HTML.&lt;/p&gt;
+  
+  &lt;h6&gt;Catatan Kecil&lt;/h6&gt;
+  &lt;p&gt;Ini adalah contoh penggunaan elemen heading level 6.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+        </div>
+      </div>
+      
+      
+  
+  <!-- Resources Section -->
+  <section id="resources" class="resources-section">
+    <div class="container">
+      <div class="section-header">
+    
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <div class="footer-logo">HTML<span>Docs</span></div>
+        <p class="footer-description">
+          Dokumentasi elemen HTML dasar untuk pemula.
+        </p>
+      </div>
+      <div>
+        <p class="footer-copyright">
+          &copy; <script>document.write(new Date().getFullYear())</script> HTMLDocs. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Scroll with smooth animation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Intersection Observer for animation
+    const observerOptions = {
+      threshold: 0.1,
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.section-header, .element-card, .example-code, .resource-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

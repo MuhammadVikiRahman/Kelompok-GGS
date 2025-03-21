@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Gatherer - Assignment Submission System</title>
+    <meta name="description" content="A simple, elegant platform for collecting and organizing PDF submissions." />
+    <meta name="author" content="PDF Gatherer" />
+    <meta property="og:image" content="/og-image.png" />
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#3b82f6',
+              secondary: '#f3f4f6',
+              background: '#ffffff',
+              foreground: '#1e293b',
+              destructive: '#ef4444',
+              muted: '#94a3b8',
+              border: '#e2e8f0'
+            }
+          }
+        }
+      }
+    </script>
+    
+    <style>
+      /* Animation classes */
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      
+      .animate-slide-down {
+        animation: slideDown 0.5s ease-in-out;
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: rgba(148, 163, 184, 0.3);
+        border-radius: 4px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(148, 163, 184, 0.5);
+      }
+    </style>
+  </head>
+
+  <body class="bg-background text-foreground">
+    <div id="app">
+      <!-- Navbar -->
+      <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-transparent">
+        <div class="container mx-auto flex items-center justify-between px-4">
+          <a
+            href="#home"
+            class="text-xl md:text-2xl font-semibold text-primary tracking-tight flex items-center"
+          >
+            <span class="relative">
+              PDF
+              <span class="absolute -top-1 -right-3 h-2 w-2 bg-primary rounded-full animate-pulse"></span>
+            </span>
+            <span class="text-foreground ml-1">Gatherer</span>
+          </a>
+  
+          <nav class="hidden md:flex items-center gap-6">
+            <a
+              href="#home"
+              class="text-foreground/80 hover:text-primary transition-colors duration-200"
+            >
+              Dashboard
+            </a>
+            <a
+              href="#submissions"
+              class="text-foreground/80 hover:text-primary transition-colors duration-200"
+            >
+              Submissions
+            </a>
+            <a
+              href="#about"
+              class="text-foreground/80 hover:text-primary transition-colors duration-200"
+            >
+              About
+            </a>
+          </nav>
+  
+         
+        </div>
+      </header>
+  
+      <!-- Home/Dashboard Section -->
+      <section id="home" class="pt-24 pb-0">
+        <!-- Hero Section -->
+        <section class="relative py-16 sm:py-24 overflow-hidden">
+          <!-- Background decoration -->
+          <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-70"></div>
+            <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-70"></div>
+          </div>
+          
+          <div class="container relative z-10 mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+              <div class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
+                <span class="w-2 h-2 rounded-full bg-primary mr-2"></span>
+                Kelompok VR
+              </div>
+              
+              <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-6 animate-slide-down">
+                Kirim tugas Anda dengan mudah
+              </h1>
+              
+              <p class="text-lg text-muted mb-8 animate-slide-down">
+                Dengan tujuan untuk menyelesaikan tugas dari bapak DR. Relita Buaton, ST., M.KOM Kami pembuat web ini dari Kelompok VR Viki dan Rizky Ganteng Terimakasih
+              </p>
+              
+              <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-down">
+                <button 
+                  onclick="scrollToElement('#submissions')"
+                  class="w-full sm:w-auto px-6 py-3 bg-primary text-white rounded-md font-medium shadow-sm hover:bg-primary/90 transition-colors"
+                >
+                  Upload Assignment
+                </button>
+                
+                <button 
+                  onclick="scrollToElement('#about')"
+                  class="w-full sm:w-auto flex items-center justify-center px-6 py-3 bg-secondary text-foreground rounded-md font-medium hover:bg-secondary/80 transition-colors"
+                >
+                  Learn More
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 h-4 w-4">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+  
+        <!-- Features Section -->
+        <section class="py-16 sm:py-24 bg-secondary/50">
+          <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+              <h2 class="text-3xl font-bold text-foreground mb-4 animate-fade-in">
+                Streamline Your Assignment Submissions
+              </h2>
+              <p class="text-muted max-w-2xl mx-auto animate-fade-in">
+                Platform kami menyediakan cara yang sederhana dan efisien untuk mengirimkan dan mengelola tugas PDF
+              </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="features-container">
+              <!-- Features will be added here by JavaScript -->
+            </div>
+          </div>
+        </section>
+  
+        <!-- Recent Submissions Section -->
+        <section class="py-16">
+          <div class="container mx-auto px-4">
+            <div class="mb-8">
+              <h2 class="text-2xl font-bold text-foreground mb-2">Recent Submissions</h2>
+              <p class="text-muted">Lihat beberapa tugas yang baru saja dikirimkan</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="recent-submissions-container">
+              <!-- Recent submissions will be added here by JavaScript -->
+            </div>
+          </div>
+        </section>
+      </section>
+  
+      <!-- Submissions Section -->
+      <section id="submissions" class="pt-24 pb-12">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto">
+            <div class="mb-12 text-center">
+              <h1 class="text-3xl font-bold text-foreground mb-2 animate-fade-in">PDF Submissions</h1>
+              <p class="text-muted animate-fade-in">
+                Unggah tugas PDF Anda dan lihat kiriman sebelumnya
+              </p>
+            </div>
+  
+            <div class="grid grid-cols-1 lg:grid-cols-[1fr,1.5fr] gap-12">
+              <div class="animate-fade-in">
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-lg border border-border shadow-sm">
+                  <h2 class="text-xl font-semibold mb-6">Upload Assignment</h2>
+                  
+                  <!-- Submission Form -->
+                  <form id="submission-form" class="space-y-6 animate-fade-in">
+                    <div class="space-y-2">
+                      <label for="name" class="text-sm font-medium">
+                        Nama <span class="text-destructive">*</span>
+                      </label>
+                      <input
+                        id="name"
+                        type="text"
+                        placeholder="Enter your full name"
+                        class="w-full px-3 py-2 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                        required
+                      />
+                    </div>
+                    
+                    <div class="space-y-2">
+                      <label for="id" class="text-sm font-medium">
+                        NPM <span class="text-destructive">*</span>
+                      </label>
+                      <input
+                        id="id"
+                        type="text"
+                        placeholder="Enter your student ID"
+                        class="w-full px-3 py-2 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                        required
+                      />
+                    </div>
+                    
+                    <div class="space-y-2">
+                      <label for="class" class="text-sm font-medium">
+                        Tugas <span class="text-destructive">*</span>
+                      </label>
+                      <input
+                        id="class"
+                        type="text"
+                        placeholder="Enter class or subject name"
+                        class="w-full px-3 py-2 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                        required
+                      />
+                    </div>
+                    
+                    <div class="space-y-2">
+                      <label class="text-sm font-medium">
+                        Apload File <span class="text-destructive">*</span>
+                      </label>
+                      
+                      <!-- File Uploader -->
+                      <div id="file-uploader" class="w-full">
+                        <div
+                          id="drop-area"
+                          class="border-2 border-dashed rounded-lg p-8 transition-all duration-200 animate-fade-in border-border hover:border-primary/50 hover:bg-secondary/50"
+                        >
+                          <div class="flex flex-col items-center justify-center text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 mb-4 text-primary animate-slide-down">
+                              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                              <polyline points="17 8 12 3 7 8"></polyline>
+                              <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <h3 class="text-lg font-medium mb-2">Drag and drop your PDF file</h3>
+                            <p class="text-muted text-sm mb-4">
+                              or click to browse from your computer
+                            </p>
+                            <button
+                              type="button"
+                              id="browse-button"
+                              class="px-4 py-2 bg-primary text-white rounded-md text-sm font-medium transition-colors hover:bg-primary/90 shadow-sm"
+                            >
+                              Select PDF File
+                            </button>
+                            <p class="text-xs text-muted mt-4">
+                              Maximum file size: 10MB
+                            </p>
+                            <input
+                              type="file"
+                              id="file-input"
+                              accept=".pdf"
+                              class="hidden"
+                            />
+                          </div>
+                        </div>
+                        <div id="selected-file" class="hidden border rounded-lg p-4 animate-fade-in">
+                          <!-- Selected file details will be added here by JavaScript -->
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <button
+                      type="submit"
+                      id="submit-button"
+                      class="w-full py-3 rounded-md font-medium transition-all bg-primary text-white hover:bg-primary/90 shadow-sm"
+                    >
+                      Submit Assignment
+                    </button>
+                  </form>
+                </div>
+              </div>
+  
+              <div class="space-y-6 animate-fade-in">
+                <div class="flex items-center relative">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 text-muted h-4 w-4">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search submissions..."
+                    class="w-full pl-10 pr-4 py-2 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                  />
+                </div>
+  
+                <h2 class="text-xl font-semibold mb-4">Your Submissions</h2>
+  
+                <div id="submissions-container" class="space-y-4">
+                  <!-- Submissions will be added here by JavaScript -->
+                  <div class="text-center py-12 border rounded-lg bg-muted/20 hidden" id="no-submissions">
+                    <p class="text-muted">No submissions found</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <!-- About Section -->
+      <section id="about" class="pt-24 pb-12">
+        <div class="container mx-auto px-4">
+          <section class="py-12 max-w-4xl mx-auto">
+            <div class="text-center mb-16 animate-fade-in">
+              <h1 class="text-4xl font-bold text-foreground mb-4">About PDF Gatherer</h1>
+              <p class="text-lg text-muted">
+                Solusi modern untuk mengumpulkan dan mengatur tugas PDF
+              </p>
+            </div>
+  
+            <div class="prose prose-lg max-w-none animate-fade-in">
+
+              <div class="not-prose my-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="about-features">
+                  <!-- About features will be added here by JavaScript -->
+                </div>
+              </div>
+  
+              <h2>Manfaat bagi Pengguna</h2>
+              <ul>
+                <li>Proses pengiriman yang mudah dan intuitif</li>
+                <li>Konfirmasi instan untuk unggahan yang berhasil</li>
+                <li>Lacak status kiriman Anda</li>
+                <li>Akses riwayat pengiriman Anda kapan saja</li>
+                <li>Menerima pemberitahuan tentang ulasan dan masukan</li>
+              </ul>
+  
+              <h2>Manfaat bagi Pendidik</h2>
+              <ul>
+                <li>Pengumpulan terpusat dari semua tugas siswa</li>
+                <li>Dasbor yang terorganisir untuk navigasi yang mudah</li>
+                <li>Opsi unduhan massal untuk penilaian yang efisien</li>
+                <li>Proses umpan balik yang efisien</li>
+                <li>Analitik untuk melacak pola pengiriman dan tenggat waktu</li>
+              </ul>
+            </div>
+  
+            <div class="mt-16 text-center animate-fade-in">
+              <button 
+                onclick="scrollToElement('#submissions')"
+                class="px-6 py-3 bg-primary text-white rounded-md font-medium shadow-sm hover:bg-primary/90 inline-flex items-center transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-5 w-5">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z"></path>
+                  <polyline points="8 7 12 11 16 7"></polyline>
+                  <line x1="12" y1="11" x2="12" y2="17"></line>
+                </svg>
+                Start Submitting
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 h-4 w-4">
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </button>
+            </div>
+          </section>
+        </div>
+      </section>
+  
+      <!-- Footer -->
+      <footer class="py-12 border-t border-border/40 mt-auto">
+        <div class="container mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold text-foreground">PDF Gatherer</h3>
+              <p class="text-muted text-sm">
+                A simple, elegant platform for collecting and organizing PDF submissions.
+              </p>
+            </div>
+            
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold text-foreground">Quick Links</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a href="#home" class="text-muted text-sm hover:text-primary transition-colors">
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a href="#submissions" class="text-muted text-sm hover:text-primary transition-colors">
+                    Submissions
+                  </a>
+                </li>
+                <li>
+                  <a href="#about" class="text-muted text-sm hover:text-primary transition-colors">
+                    About
+                  </a>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold text-foreground">Contact</h3>
+              <ul class="space-y-2">
+                <li class="text-muted text-sm">
+                  support@pdfgatherer.com
+                </li>
+                <li class="text-muted text-sm">
+                  +1 (555) 123-4567
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="mt-12 pt-6 border-t border-border/40">
+            <p class="text-muted text-sm text-center">
+              © <span id="current-year"></span> PDF Gatherer. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+      
+      <!-- Toast notifications -->
+      <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2"></div>
+    </div>
+
+    <script>
+      // ===== Data =====
+      const features = [
+        {
+          title: "Easy PDF Uploads",
+          description: "Drag and drop your PDF files or select them from your device to upload quickly and easily.",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-primary">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>`,
+        },
+        {
+          title: "Organized Submissions",
+          description: "Keep all your assignments organized in one place with detailed information and status tracking.",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-primary">
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>`,
+        },
+        {
+          title: "Instant Confirmations",
+          description: "Receive immediate confirmation when your PDF assignment has been successfully submitted.",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-primary">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>`,
+        },
+        {
+          title: "Secure Storage",
+          description: "All submitted PDF files are securely stored and accessible only to authorized users.",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-primary">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>`,
+        },
+      ];
+      
+      const aboutFeatures = [
+        {
+          title: "Upload",
+          description: "Students upload their PDF assignments through our simple interface",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-primary">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>`,
+        },
+        {
+          title: "Process",
+          description: "Submissions are processed, organized, and made available for review",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-primary">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>`,
+        },
+        {
+          title: "Access",
+          description: "Educators can easily access, review, and provide feedback on submissions",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-primary">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>`,
+        },
+      ];
+      
+      const sampleSubmissions = [
+        {
+          id: "1",
+          fileName: "Final_Project_Report.pdf",
+          studentName: "John Smith",
+          studentId: "STD12345",
+          className: "Advanced Programming",
+          fileSize: "2.4 MB",
+          submittedDate: "May 15, 2023",
+          status: "approved",
+        },
+        {
+          id: "2",
+          fileName: "Data_Analysis_Assignment.pdf",
+          studentName: "Emily Johnson",
+          studentId: "STD67890",
+          className: "Data Science",
+          fileSize: "3.8 MB",
+          submittedDate: "May 14, 2023",
+          status: "pending",
+        },
+        {
+          id: "3",
+          fileName: "Research_Methodology.pdf",
+          studentName: "Michael Brown",
+          studentId: "STD54321",
+          className: "Research Methods",
+          fileSize: "1.7 MB",
+          submittedDate: "May 12, 2023",
+          status: "rejected",
+        },
+        {
+          id: "4",
+          fileName: "Literature_Review.pdf",
+          studentName: "Sarah Davis",
+          studentId: "STD13579",
+          className: "English Literature",
+          fileSize: "4.2 MB",
+          submittedDate: "May 10, 2023",
+          status: "approved",
+        },
+      ];
+      
+      // ===== Utility Functions =====
+      function scrollToElement(selector) {
+        const element = document.querySelector(selector);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+      
+      function getStatusClasses(status) {
+        switch (status) {
+          case "pending":
+            return "bg-yellow-100 text-yellow-800";
+          case "approved":
+            return "bg-green-100 text-green-800";
+          case "rejected":
+            return "bg-red-100 text-red-800";
+          default:
+            return "bg-gray-100 text-gray-800";
+        }
+      }
+      
+      function showToast(message, type = 'success') {
+        const toastContainer = document.getElementById('toast-container');
+        
+        const toast = document.createElement('div');
+        toast.className = `px-4 py-3 rounded-lg shadow-lg max-w-sm animate-fade-in transition-all flex items-center ${
+          type === 'success' ? 'bg-green-50 text-green-800 border border-green-200' :
+          type === 'error' ? 'bg-red-50 text-red-800 border border-red-200' :
+          'bg-blue-50 text-blue-800 border border-blue-200'
+        }`;
+        
+        const icon = type === 'success' 
+          ? '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
+          : '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+        
+        toast.innerHTML = `
+          ${icon}
+          <span>${message}</span>
+          <button class="ml-auto pl-3" onclick="this.parentElement.remove()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        `;
+        
+        toastContainer.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('opacity-0');
+          setTimeout(() => {
+            if (toast.parentElement) {
+              toast.remove();
+            }
+          }, 300);
+        }, 5000);
+      }
+      
+      function createSubmissionCard(submission) {
+        return `
+          <div class="border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md hover:border-primary/20 bg-white animate-fade-in">
+            <div class="p-4 flex items-start gap-4">
+              <div class="shrink-0 p-3 bg-primary/10 rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-primary">
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+              </div>
+              
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2 mb-1">
+                  <h3 class="font-medium truncate text-foreground">${submission.fileName}</h3>
+                  <span class="text-xs px-2 py-1 rounded-full font-medium ${getStatusClasses(submission.status)}">
+                    ${submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
+                  </span>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-muted mt-2">
+                  <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 mr-2 opacity-70">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="truncate">${submission.studentName}</span>
+                  </div>
+                  <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 mr-2 opacity-70">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span>${submission.submittedDate}</span>
+                  </div>
+                  <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 mr-2 opacity-70">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span>${submission.studentId}</span>
+                  </div>
+                  <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 mr-2 opacity-70">
+                      <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    <span>${submission.fileSize}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="px-4 py-3 bg-muted/50 flex items-center justify-between">
+              <span class="text-sm text-muted">${submission.className}</span>
+              <button class="flex items-center text-sm text-primary hover:text-primary/80 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-1">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download
+              </button>
+            </div>
+          </div>
+        `;
+      }
+      
+      // ===== Initialize App =====
+      document.addEventListener('DOMContentLoaded', function() {
+        const currentYear = new Date().getFullYear();
+        document.getElementById('current-year').textContent = currentYear;
+        
+        // Initialize Features Section
+        const featuresContainer = document.getElementById('features-container');
+        features.forEach((feature, index) => {
+          const featureCard = document.createElement('div');
+          featureCard.className = "bg-white dark:bg-slate-900 p-6 rounded-lg border border-border hover:border-primary/20 transition-all duration-300 shadow-sm hover:shadow animate-fade-in";
+          featureCard.style.animationDelay = `${index * 100}ms`;
+          
+          featureCard.innerHTML = `
+            <div class="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              ${feature.icon}
+            </div>
+            <h3 class="text-lg font-medium text-foreground mb-2">${feature.title}</h3>
+            <p class="text-muted text-sm">${feature.description}</p>
+          `;
+          
+          featuresContainer.appendChild(featureCard);
+        });
+        
+        // Initialize About Features
+        const aboutFeaturesContainer = document.getElementById('about-features');
+        aboutFeatures.forEach((feature) => {
+          const featureCard = document.createElement('div');
+          featureCard.className = "bg-white dark:bg-slate-900 p-6 rounded-lg border border-border shadow-sm text-center hover:shadow-md transition-all";
+          
+          featureCard.innerHTML = `
+            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              ${feature.icon}
+            </div>
+            <h3 class="text-lg font-medium mb-2">${feature.title}</h3>
+            <p class="text-muted text-sm">
+              ${feature.description}
+            </p>
+          `;
+          
+          aboutFeaturesContainer.appendChild(featureCard);
+        });
+        
+        // Initialize Recent Submissions
+        const recentSubmissionsContainer = document.getElementById('recent-submissions-container');
+        // Display only first two submissions for recent section
+        sampleSubmissions.slice(0, 2).forEach((submission) => {
+          recentSubmissionsContainer.innerHTML += createSubmissionCard(submission);
+        });
+        
+        // Initialize Submissions List
+        const submissionsContainer = document.getElementById('submissions-container');
+        sampleSubmissions.forEach((submission) => {
+          submissionsContainer.innerHTML += createSubmissionCard(submission);
+        });
+        
+        // File Uploader Logic
+        const fileInput = document.getElementById('file-input');
+        const browseButton = document.getElementById('browse-button');
+        const dropArea = document.getElementById('drop-area');
+        const selectedFileArea = document.getElementById('selected-file');
+        let selectedFile = null;
+        
+        browseButton.addEventListener('click', () => {
+          fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+          if (e.target.files.length > 0) {
+            handleFile(e.target.files[0]);
+          }
+        });
+        
+        // Drag and drop functionality
+        ['dragover', 'dragenter'].forEach(eventName => {
+          dropArea.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropArea.classList.add('border-primary', 'bg-primary/5');
+            dropArea.classList.remove('border-border', 'hover:border-primary/50');
+          }, false);
+        });
+        
+        ['dragleave', 'dragend'].forEach(eventName => {
+          dropArea.addEventListener(eventName, () => {
+            dropArea.classList.remove('border-primary', 'bg-primary/5');
+            dropArea.classList.add('border-border', 'hover:border-primary/50');
+          }, false);
+        });
+        
+        dropArea.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropArea.classList.remove('border-primary', 'bg-primary/5');
+          dropArea.classList.add('border-border', 'hover:border-primary/50');
+          
+          if (e.dataTransfer.files.length > 0) {
+            handleFile(e.dataTransfer.files[0]);
+          }
+        }, false);
+        
+        function handleFile(file) {
+          if (file.type !== "application/pdf") {
+            showToast("Please select a PDF file", "error");
+            return;
+          }
+          
+          if (file.size > 10 * 1024 * 1024) { // 10MB
+            showToast("File size should be less than 10MB", "error");
+            return;
+          }
+          
+          selectedFile = file;
+          
+          // Update UI
+          dropArea.classList.add('hidden');
+          selectedFileArea.classList.remove('hidden');
+          
+          const fileSize = (file.size / 1024 / 1024).toFixed(2);
+          
+          selectedFileArea.innerHTML = `
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-primary mr-4">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              <div class="flex-1 min-w-0">
+                <p class="font-medium truncate">${file.name}</p>
+                <p class="text-xs text-muted">
+                  ${fileSize} MB • PDF
+                </p>
+              </div>
+              <button
+                id="remove-file-button"
+                class="p-1 rounded-full hover:bg-secondary text-muted hover:text-destructive transition-colors"
+                aria-label="Remove file"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          `;
+          
+          document.getElementById('remove-file-button').addEventListener('click', clearSelectedFile);
+          
+          showToast("File selected successfully");
+        }
+        
+        function clearSelectedFile() {
+          selectedFile = null;
+          fileInput.value = "";
+          selectedFileArea.classList.add('hidden');
+          dropArea.classList.remove('hidden');
+        }
+        
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const noSubmissionsMessage = document.getElementById('no-submissions');
+        
+        searchInput.addEventListener('input', () => {
+          const searchTerm = searchInput.value.toLowerCase();
+          const submissionCards = submissionsContainer.querySelectorAll('.border.rounded-lg.overflow-hidden');
+          let visibleCount = 0;
+          
+          submissionCards.forEach(card => {
+            const cardText = card.textContent.toLowerCase();
+            if (cardText.includes(searchTerm)) {
+              card.style.display = '';
+              visibleCount++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+          
+          // Show/hide "No submissions" message
+          if (visibleCount === 0) {
+            noSubmissionsMessage.classList.remove('hidden');
+          } else {
+            noSubmissionsMessage.classList.add('hidden');
+          }
+        });
+        
+        // Form submission
+        const submissionForm = document.getElementById('submission-form');
+        const submitButton = document.getElementById('submit-button');
+        
+        submissionForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          const studentName = document.getElementById('name').value.trim();
+          const studentId = document.getElementById('id').value.trim();
+          const className = document.getElementById('class').value.trim();
+          
+          if (!studentName || !studentId || !className) {
+            showToast("Please fill in all required fields", "error");
+            return;
+          }
+          
+          if (!selectedFile) {
+            showToast("Please select a PDF file to upload", "error");
+            return;
+          }
+          
+          // Simulate loading
+          submitButton.disabled = true;
+          submitButton.textContent = "Submitting...";
+          submitButton.classList.add('bg-primary/70');
+          submitButton.classList.remove('bg-primary', 'hover:bg-primary/90');
+          
+          // Simulate a file upload with a timeout
+          setTimeout(() => {
+            showToast("Assignment submitted successfully!");
+            
+            // Reset form
+            submissionForm.reset();
+            clearSelectedFile();
+            
+            // Restore submit button
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Assignment";
+            submitButton.classList.remove('bg-primary/70');
+            submitButton.classList.add('bg-primary', 'hover:bg-primary/90');
+            
+            // Add the new submission to the list
+            const newSubmission = {
+              id: `${Date.now()}`,
+              fileName: selectedFile.name,
+              studentName: studentName,
+              studentId: studentId,
+              className: className,
+              fileSize: `${(selectedFile.size / 1024 / 1024).toFixed(2)} MB`,
+              submittedDate: new Date().toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+              }),
+              status: "pending",
+            };
+            
+            // Add to the submissions list
+            submissionsContainer.innerHTML = createSubmissionCard(newSubmission) + submissionsContainer.innerHTML;
+            
+            // Make sure "No submissions" message is hidden
+            noSubmissionsMessage.classList.add('hidden');
+          }, 2000);
+        });
+        
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 10) {
+            navbar.classList.remove('py-5', 'bg-transparent');
+            navbar.classList.add('py-3', 'bg-white/80', 'backdrop-blur-md', 'shadow-sm');
+          } else {
+            navbar.classList.add('py-5', 'bg-transparent');
+            navbar.classList.remove('py-3', 'bg-white/80', 'backdrop-blur-md', 'shadow-sm');
+          }
+        });
+        
+        // Trigger scroll event to set initial navbar state
+        window.dispatchEvent(new Event('scroll'));
+      });
+    </script>
+  </body>
+</html>
